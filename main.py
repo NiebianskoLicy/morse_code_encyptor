@@ -40,6 +40,7 @@ def encrypt(e_text):
                 cipher += MORSE_CODE_DICT["else"][letter] + " "
             else:
                 cipher += " "
+    print(f"encrypted code: {cipher}")
     return cipher
 
 
