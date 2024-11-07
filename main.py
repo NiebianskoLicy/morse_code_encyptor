@@ -17,27 +17,34 @@ MORSE_CODE_DICT = {'A': '.-', 'B': '-...',
 method = input("type encrypt to encrypte, type decrypt to decrypte: ").lower()
 
 
-# splitting text to words to encode or decode
-def to_list(t_text):
-    text_list = [letter.split() for letter in t_text]
-    return  text_list
-
 # method for encrypt morse code
-def encrypte(e_text):
-    to_list(e_text)
+def encrypt(e_text):
+    cipher = ""
+
+    #iterate word per word
+    for letter in e_text:
+        # adding from dictionary morse code per letter
+        # one space indicate different character
+        # two spaces indicate different words
+        if letter != " ":
+            cipher += MORSE_CODE_DICT[letter.upper()] + " "
+        else:
+            cipher += " "
+    return cipher
+
 
 # method for decrypt morse code
-def decrypte(d_text):
+def decrypt(d_text):
     pass
 
 
 if method == "encrypt":
     text_to_encrypte = input("Text to encrypte: ")
-    encrypte(e_text=text_to_encrypte)
+    encrypt(e_text=text_to_encrypte)
 
 elif method == "decrypt":
     text_to_decrypte = input("Text to decrypte: ")
-    decrypte(d_text=text_to_decrypte)
+    decrypt(d_text=text_to_decrypte)
 
 else:
     print("Try again. Use only encrypt or decrypt")
