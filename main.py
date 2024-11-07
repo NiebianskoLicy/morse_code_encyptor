@@ -35,8 +35,20 @@ def encrypt(e_text):
 
 # method for decrypt morse code
 def decrypt(d_text):
-    pass
-
+    decipher = ""
+    spaces = 0
+    morse_code = ""
+    for morse in d_text:
+        if morse != " ":
+            morse_code += morse
+        elif morse == " " and spaces == 0:
+            spaces += 1
+            key_list = [key for key, val in MORSE_CODE_DICT.items() if val == morse_code]
+            decipher += MORSE_CODE_DICT[key_list][0]
+        elif morse == " " and spaces == 1:
+            decipher += " "
+            spaces += 1
+    return decipher
 
 if method == "encrypt":
     text_to_encrypte = input("Text to encrypte: ")
