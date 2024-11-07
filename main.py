@@ -1,4 +1,5 @@
-MORSE_CODE_DICT = {'A': '.-', 'B': '-...',
+MORSE_CODE_DICT = {'letters':
+                       {'A': '.-', 'B': '-...',
                    'C': '-.-.', 'D': '-..', 'E': '.',
                    'F': '..-.', 'G': '--.', 'H': '....',
                    'I': '..', 'J': '.---', 'K': '-.-',
@@ -6,30 +7,39 @@ MORSE_CODE_DICT = {'A': '.-', 'B': '-...',
                    'O': '---', 'P': '.--.', 'Q': '--.-',
                    'R': '.-.', 'S': '...', 'T': '-',
                    'U': '..-', 'V': '...-', 'W': '.--',
-                   'X': '-..-', 'Y': '-.--', 'Z': '--..',
-                   '1': '.----', '2': '..---', '3': '...--',
+                   'X': '-..-', 'Y': '-.--', 'Z': '--..',}
+                   ,'else':
+                       {'1': '.----', '2': '..---', '3': '...--',
                    '4': '....-', '5': '.....', '6': '-....',
                    '7': '--...', '8': '---..', '9': '----.',
-                   '0': '-----', ', ': '--..--', '.': '.-.-.-',
+                   '0': '-----', ',': '--..--', '.': '.-.-.-',
                    '?': '..--..', '/': '-..-.', '-': '-....-',
-                   '(': '-.--.', ')': '-.--.-'}
+                   '(': '-.--.', ')': '-.--.-', '!': '-.-.--',
+                   '&': '.-...', ':': '---...', ';': '-.-.-.',
+                   '=': '-...-', '+': '.-.-.', '_': '..--.-',
+                   '"': '.-..-.', "$": '...-..-', '@': '.--.-.'}}
 
-method = input("type encrypt to encrypte, type decrypt to decrypte: ").lower()
+method = input("Type encrypt or decrypt: ").lower()
 
 
 # method for encrypt morse code
 def encrypt(e_text):
     cipher = ""
-
     #iterate word per word
     for letter in e_text:
         # adding from dictionary morse code per letter
         # one space indicate different character
         # two spaces indicate different words
-        if letter != " ":
-            cipher += MORSE_CODE_DICT[letter.upper()] + " "
-        else:
-            cipher += " "
+        if letter.upper() in MORSE_CODE_DICT["letters"]:
+            if letter != " ":
+                cipher += MORSE_CODE_DICT['letters'][letter.upper()] + " "
+            else:
+                cipher += " "
+        else :
+            if letter != " ":
+                cipher += MORSE_CODE_DICT["else"][letter] + " "
+            else:
+                cipher += " "
     return cipher
 
 
