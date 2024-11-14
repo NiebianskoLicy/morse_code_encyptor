@@ -46,27 +46,29 @@ def encrypt(e_text):
 
 # method for decrypt morse code
 def decrypt(d_text):
+    i = 0
     decipher = ""
-    spaces = 0
     morse_code = ""
     for morse in d_text:
         if morse != " ":
+            i = 0
             morse_code += morse
-        elif morse == " " and spaces == 0:
-            if morse in MORSE_CODE_DICT["letters"]:
-                spaces += 1
-                key_list = [key for key, val in MORSE_CODE_DICT["letters"].items() if val == morse_code]
-                print(key_list)
-                decipher += MORSE_CODE_DICT["letters"][key_list][0]
-            elif morse in MORSE_CODE_DICT["else"]:
-                spaces += 1
-                key_list = [key for key, val in MORSE_CODE_DICT["else"].items() if val == morse_code]
-                print(key_list)
-                decipher += MORSE_CODE_DICT["else"][key_list][0]
-        elif morse == " " and spaces == 1:
-            decipher += " "
-            spaces = 0
-    print(f"decrypted code: {decipher}")
+        else:
+            if morse_code in MORSE_CODE_DICT["letters"].values():
+                i += 1
+                if i >= 2:
+                    decipher += " "
+                else:
+                    decipher += list(MORSE_CODE_DICT["letters"].keys())[list(MORSE_CODE_DICT["letters"].values()).index(morse_code)]
+            else:
+                i += 1
+                if i >= 2:
+                    decipher += " "
+                else:
+                    print(decipher)
+                    decipher += list(MORSE_CODE_DICT["else"].keys())[list(MORSE_CODE_DICT['else'].values()).index(morse_code)]
+            morse_code = ""
+    print(f"decrypted code: {decipher}, {morse_code}")
     return decipher
 
 if method == "encrypt":
