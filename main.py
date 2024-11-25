@@ -1,3 +1,4 @@
+# dictionary containing letters and its equivalent in morse code
 MORSE_CODE_DICT = {'letters':
                        {'A': '.-', 'B': '-...',
                         'C': '-.-.', 'D': '-..', 'E': '.',
@@ -18,7 +19,7 @@ MORSE_CODE_DICT = {'letters':
                         '&': '.-...', ':': '---...', ';': '-.-.-.',
                         '=': '-...-', '+': '.-.-.', '_': '..--.-',
                         '"': '.-..-.', "$": '...-..-', '@': '.--.-.'}}
-
+# Start by selecting method
 method = input("Type encrypt or decrypt: ").lower()
 
 
@@ -46,25 +47,38 @@ def encrypt(e_text):
 
 # method for decrypt morse code
 def decrypt(d_text):
+    # adding space in the end of text helps with sliced last character
     d_text += " "
+    # counts number of spaces
     i = 0
+    # deciphered text
     decipher = ""
+    # putting together characters from input to prepare it for decryption
     morse_code = ""
     for morse in d_text:
+        # one space separate character, two spaces separate words
+        # if its character, not a space adding it to string
         if morse != " ":
+            # resets spaces
             i = 0
             morse_code += morse
+        # decoding character is letter
         elif morse_code in MORSE_CODE_DICT["letters"].values():
+            # counting number of spaces
             i += 1
             if i >= 2:
+                # adding space to separate words
                 decipher += " "
             else:
+                # adding character(values) from dictionary with keys
                 decipher += list(MORSE_CODE_DICT["letters"].keys())[
                     list(MORSE_CODE_DICT["letters"].values()).index(morse_code)]
+                # resets morse_code to start assemble new letter
                 morse_code = ""
+        # decoding if its symbol
         else:
             i += 1
-            if i >= 2 and morse == " ":
+            if i >= 2:
                 decipher += " "
             else:
                 decipher += list(MORSE_CODE_DICT["else"].keys())[
@@ -74,13 +88,14 @@ def decrypt(d_text):
     return decipher
 
 
-if method == "encrypt":
-    text_to_encrypt = input("Text to encrypt: ")
-    encrypt(e_text=text_to_encrypt)
+if method.lower() == "exit" or method.lower() == "e":
+    if method == "encrypt":
+        text_to_encrypt = input("Text to encrypt: ")
+        encrypt(e_text=text_to_encrypt)
 
-elif method == "decrypt":
-    text_to_decrypt = input("Text to decrypt: ")
-    decrypt(d_text=text_to_decrypt)
+    elif method == "decrypt":
+        text_to_decrypt = input("Text to decrypt: ")
+        decrypt(d_text=text_to_decrypt)
 
-else:
-    print("Try again. Use only encrypt or decrypt")
+    else:
+        print("Try again. Use only encrypt or decrypt")
